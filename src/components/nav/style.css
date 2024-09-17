@@ -1,0 +1,13 @@
+.MuiMenuItem-root:hover {
+    background-color: #d32f2f !important;
+}
+
+.Mui-focusVisible{
+    background-color: #d32f2f !important;
+    
+}
+
+.MuiMenu-paper{
+    background-color: #424242 !important;
+    color: white !important;
+}
