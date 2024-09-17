@@ -2,6 +2,7 @@ import './App.css'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/login/Login'
+import Logout from './components/logout/Logout';
 import Background from './components/background/Background';
 import BoxContainer from './components/boxContainer/BoxContainer';
 import ResponsiveAppBar from './components/nav/ResponsiveAppBar';
@@ -20,6 +21,7 @@ function App() {
                 <Routes>
                   <Route path='/' element={<><h1>Landing Page</h1></>}/>
                   <Route path='/login' element={<Login />}/>
+                  <Route path='/logout' element={<Logout />}/>
                 </Routes>
             </BoxContainer>
             </BrowserRouter>

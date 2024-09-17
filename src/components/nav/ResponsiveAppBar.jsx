@@ -17,7 +17,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import MainMenu from '../menuPrincipal/MainMenu';
 import { grey } from '@mui/material/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useNavigate } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -35,10 +34,9 @@ const menuUserLogout = [{tittle: 'Iniciar sesion', path: '/login'}, {tittle: 'Re
 
 const ResponsiveAppBar = () => {
   
-  const { authState, logout } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [menu, setMenu] = useState([]);
-  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -46,13 +44,6 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleLogout = () => {
-    handleCloseUserMenu();
-    logout();
-    localStorage.removeItem('token');
-    navigate('/login');
   };
 
   useEffect(() => {
@@ -95,24 +86,19 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               { authState.isAuthenticated ?
-                  (
-                    <>
-                    <MenuItem onClick={handleLogout}>
-                      <Typography sx={{ textAlign: 'center' }}>Cerrar sesión</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link to={'/perfil'} style={{ textDecoration: "none", color: "white" }}>
-                        <Typography sx={{ textAlign: 'center' }}>Perfil</Typography>
-                      </Link>
-                    </MenuItem>
-                    </>
-                  )
-                  : 
-                  (menuUserLogout.map((setting) => <MenuItem key={setting.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
-                    <Link to={setting.path} style={{ textDecoration: "none", color: "white" }}>
-                      <Typography sx={{ textAlign: 'center' }}>{setting.tittle}</Typography>
+                (
+                  menuUserLogin.map(page => <MenuItem key={page.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
+                    <Link to={page.path} style={{ textDecoration: "none", color: "white" }}>
+                      <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
                     </Link>
                   </MenuItem>)
+                )
+                : 
+                (menuUserLogout.map(setting => <MenuItem key={setting.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
+                  <Link to={setting.path} style={{ textDecoration: "none", color: "white" }}>
+                    <Typography sx={{ textAlign: 'center' }}>{setting.tittle}</Typography>
+                  </Link>
+                </MenuItem>)
                 )
               }
             </Menu>
