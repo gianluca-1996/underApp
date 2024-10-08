@@ -1,0 +1,19 @@
+.cardPost{
+    width: 70%;
+    margin: 2%;
+    background-color: #eeeeee !important;
+}
+
+@media (max-width: 500px) {
+    .cardPost{
+        width: 100%;
+        margin: 2%;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .cardPost{
+        width: 100%;
+        margin: 2%;
+    }
+}

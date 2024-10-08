@@ -1,0 +1,12 @@
+.stackPosteos{
+    flex-wrap: 'wrap';
+    padding: '5%';
+    align-items: center; /* Centra los elementos */
+}
+
+@media (max-width: 500px) {
+    .stackPosteos{
+        flex-direction: column /* Cambia a disposición vertical */ !important;
+        align-items: center; /* Centra los elementos */
+    }
+}

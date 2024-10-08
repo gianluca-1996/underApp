@@ -17,27 +17,27 @@ const Login = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-      const onSubmit = async (data) => {
-        try {
-            const response = await axios({
-                method: 'post',
-                url: 'http://localhost:8080/user/login',
-                data: {
-                    email: data.usuario,
-                    password: data.password
-                }
-            });
-            
-            localStorage.setItem('token', response.data.token);
-            login(response.data.user);
-            navigate('/');
-        } catch (error) {
-            setErrorMessage(error.response? ('Error | ' + error.response.data) : (error.message + ' | No se pudo conectar con el servidor'));
-            setTimeout(() => {
-                setErrorMessage(null);
-            }, 5000);
-        }
-      }
+    const onSubmit = async (data) => {
+    try {
+        const response = await axios({
+            method: 'post',
+            url: 'http://localhost:8080/user/login',
+            data: {
+                email: data.usuario,
+                password: data.password
+            }
+        });
+        
+        localStorage.setItem('token', response.data.token);
+        login(response.data.user);
+        navigate('/');
+    } catch (error) {
+        setErrorMessage(error.response? ('Error | ' + error.response.data) : (error.message + ' | No se pudo conectar con el servidor'));
+        setTimeout(() => {
+            setErrorMessage(null);
+        }, 5000);
+    }
+    }
 
     return(
         

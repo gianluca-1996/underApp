@@ -14,16 +14,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import MainMenu from '../menuPrincipal/MainMenu';
 import { grey } from '@mui/material/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useContext } from 'react';
+import MainMenu from '../menuPrincipal/MainMenu';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 //paginas del menu
-const paginasEstaticas = [{tittle: 'Noticias', path: '/noticias'}, {tittle: 'Eventos', path: '/eventos'}, {tittle: 'Ranking', path: '/ranking'}];
+const paginasEstaticas = [
+  {tittle: 'Noticias', path: '/noticias'}, {tittle: 'Eventos', path: '/eventos'}, {tittle: 'Ranking', path: '/ranking'},
+  {tittle: 'Comunidad', path: '/comunidad'}
+];
 const organizadorMenu = [{tittle: 'Mis Eventos', path: '/organizador/misEventos'}];
 const competidorMenu = [{tittle: 'Participaciones', path: '/competidor/participaciones'}];
 const adminMenu = [{tittle: 'adminPanel', path: '/admin'}];
@@ -33,7 +36,6 @@ const menuUserLogin = [{tittle: 'Cerrar sesion', path: '/logout'}];
 const menuUserLogout = [{tittle: 'Iniciar sesion', path: '/login'}, {tittle: 'Registrarse', path: '/registrarse'}];
 
 const ResponsiveAppBar = () => {
-  
   const { authState } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [menu, setMenu] = useState([]);
@@ -48,9 +50,12 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {
     const menuUsuario = () => {
-      if(authState.user?.rol === 'competidor') setMenu([...paginasEstaticas, ...competidorMenu]);
+/*      if(authState.user?.rol === 'competidor') setMenu([...paginasEstaticas, ...competidorMenu]);
       if(authState.user?.rol === 'organizador') setMenu([...paginasEstaticas, ...organizadorMenu]);
       if(authState.user?.rol === 'admin') setMenu([...paginasEstaticas, ...adminMenu]);
+*/
+      if(authState.user) setMenu(paginasEstaticas);
+      else setMenu([{tittle: 'Home', path: '/home'}, {tittle: 'Eventos', path: '/eventos'}, {tittle: 'Comunidad', path: '/comunidad'}]);
     }
 
     menuUsuario();
@@ -94,9 +99,9 @@ const ResponsiveAppBar = () => {
                   </MenuItem>)
                 )
                 : 
-                (menuUserLogout.map(setting => <MenuItem key={setting.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
-                  <Link to={setting.path} style={{ textDecoration: "none", color: "white" }}>
-                    <Typography sx={{ textAlign: 'center' }}>{setting.tittle}</Typography>
+                (menuUserLogout.map(page => <MenuItem key={page.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
+                  <Link to={page.path} style={{ textDecoration: "none", color: "white" }}>
+                    <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
                   </Link>
                 </MenuItem>)
                 )
