@@ -1,13 +1,18 @@
 .cardPost{
     width: 70%;
     margin: 2%;
-    background-color: #eeeeee !important;
+    background-color: #424242 !important;
+}
+
+.MuiCardContent-root, .MuiCardHeader-subheader, .cardHeader{
+    color: #eeeeee !important;
 }
 
 @media (max-width: 500px) {
     .cardPost{
         width: 100%;
         margin: 2%;
+        background-color: #424242 !important;
     }
 }
 
@@ -15,5 +20,6 @@
     .cardPost{
         width: 100%;
         margin: 2%;
+        background-color: #424242 !important;
     }
 }

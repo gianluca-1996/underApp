@@ -31,12 +31,12 @@ const Post = ({post, userId}) => {
   return (
     <Card className='cardPost'>
       { user ? 
-        (<><CardHeader
+        (<><CardHeader className='cardHeader'
           avatar={
             <Avatar aria-label="recipe" alt="Remy Sharp" src={`${user.foto_perfil}`} />
           }
           action={
-            <IconButton aria-label="settings">
+            <IconButton aria-label="settings" color='inherit'>
               <MoreVertIcon />
             </IconButton>
           }
@@ -45,16 +45,16 @@ const Post = ({post, userId}) => {
         />
         
         <CardContent>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2">
             {post.texto}
           </Typography>
         </CardContent>
 
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" color='inherit'>
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" color='inherit'>
             <ShareIcon />
           </IconButton>
         </CardActions>
