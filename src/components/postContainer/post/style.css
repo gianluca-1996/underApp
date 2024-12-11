@@ -4,8 +4,17 @@
     background-color: #424242 !important;
 }
 
-.MuiCardContent-root, .MuiCardHeader-subheader, .cardHeader{
+
+.MuiCardHeader-root, .MuiCardHeader-subheader, .MuiCardContent-root{
     color: #eeeeee !important;
+}
+
+.MuiCardHeader-root{
+    background-color: #d32f2f;
+}
+
+.MuiCardActions-root{
+    justify-content: center !important;
 }
 
 @media (max-width: 500px) {

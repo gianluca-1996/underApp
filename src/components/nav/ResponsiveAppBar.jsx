@@ -7,13 +7,10 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { grey } from '@mui/material/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -24,12 +21,8 @@ import { Link } from 'react-router-dom';
 
 //paginas del menu
 const paginasEstaticas = [
-  {tittle: 'Noticias', path: '/noticias'}, {tittle: 'Eventos', path: '/eventos'}, {tittle: 'Ranking', path: '/ranking'},
   {tittle: 'Comunidad', path: '/comunidad'}
 ];
-const organizadorMenu = [{tittle: 'Mis Eventos', path: '/organizador/misEventos'}];
-const competidorMenu = [{tittle: 'Participaciones', path: '/competidor/participaciones'}];
-const adminMenu = [{tittle: 'adminPanel', path: '/admin'}];
 
 //paginas del menu de usuario segun si esta logueado
 const menuUserLogin = [{tittle: 'Cerrar sesion', path: '/logout'}];
@@ -50,12 +43,8 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {
     const menuUsuario = () => {
-/*      if(authState.user?.rol === 'competidor') setMenu([...paginasEstaticas, ...competidorMenu]);
-      if(authState.user?.rol === 'organizador') setMenu([...paginasEstaticas, ...organizadorMenu]);
-      if(authState.user?.rol === 'admin') setMenu([...paginasEstaticas, ...adminMenu]);
-*/
       if(authState.user) setMenu(paginasEstaticas);
-      else setMenu([{tittle: 'Home', path: '/home'}, {tittle: 'Eventos', path: '/eventos'}, {tittle: 'Comunidad', path: '/comunidad'}]);
+      else setMenu([{tittle: 'Home', path: '/home'}]);
     }
 
     menuUsuario();
@@ -70,7 +59,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {authState.user ? <Avatar alt="Remy Sharp" src="src/assets/img/eminem.jpg" /> : <AccountCircleIcon sx={{color: grey[50]}} fontSize="large"/>}
+                {authState.user ? <Avatar alt="Remy Sharp" src={authState.user.foto_perfil} /> : <AccountCircleIcon sx={{color: grey[50]}} fontSize="large"/>}
               </IconButton>
             </Tooltip>
             <Menu

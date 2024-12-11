@@ -4,6 +4,24 @@
     align-items: center; /* Centra los elementos */
 }
 
+.MuiPagination-ul{
+    justify-content: center !important;
+}
+
+.MuiPaginationItem-root{
+    color: goldenrod !important;
+}
+
+.MuiPaginationItem-root:hover{
+    background-color: goldenrod !important;
+    color: black !important;
+}
+
+.Mui-selected{
+    background-color: goldenrod !important;
+    color: black !important;
+}
+
 @media (max-width: 500px) {
     .stackPosteos{
         flex-direction: column /* Cambia a disposición vertical */ !important;

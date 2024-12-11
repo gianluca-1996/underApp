@@ -8,25 +8,29 @@ import BoxContainer from './components/boxContainer/BoxContainer';
 import ResponsiveAppBar from './components/nav/ResponsiveAppBar';
 import PostContainer from './components/postContainer/PostContainer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+import { NotificationProvider } from './components/context/NotificationContext';
 
 function App() {
   return (
     <div className='app'>
       <Background />
       <div className='content'>
-        <AuthProvider>
-              <BrowserRouter>
-                <ResponsiveAppBar />
-                <BoxContainer>
-                    <Routes>
-                      <Route path='/' element={<><h1>Landing Page</h1></>}/>
-                      <Route path='/login' element={<Login />}/>
-                      <Route path='/logout' element={<Logout />}/>
-                      <Route path='/comunidad' element={<PostContainer />}/>
-                    </Routes>
-                </BoxContainer>
-              </BrowserRouter>
-        </AuthProvider>
+        <NotificationProvider>
+            <AuthProvider>
+                <BrowserRouter>
+                  <ResponsiveAppBar />
+                  <BoxContainer>
+                      <Routes>
+                        <Route path='/' element={<><h1>Landing Page</h1></>}/>
+                        <Route path='/login' element={<Login />}/>
+                        <Route path='/logout' element={<Logout />}/>
+                        {<Route path='comunidad' element={<PrivateRoute component={PostContainer} />} />}
+                      </Routes>
+                  </BoxContainer>
+                </BrowserRouter>
+            </AuthProvider>
+        </NotificationProvider>
         <h1>Footer</h1>
       </div>
     </div>
