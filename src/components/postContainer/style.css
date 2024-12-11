@@ -1,7 +1,16 @@
+.containerPosteos{
+    min-height: 70vh;
+}
+
 .stackPosteos{
     flex-wrap: 'wrap';
     padding: '5%';
     align-items: center; /* Centra los elementos */
+    min-height: 60vh;
+}
+
+.stackPaginacion{
+    margin-top: 3vh;
 }
 
 .MuiPagination-ul{

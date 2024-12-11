@@ -57,22 +57,24 @@ const PostContainer = () => {
         </Container>)
     }
     return(
-        <Container >
+        <Container className="containerPosteos">
             <div style={{textAlign: 'center', color: 'gold'}}>
                 <h1>COMUNIDAD</h1>
             </div>
             <Stack className="stackPosteos">
             {posteos.docs.map(post => (<Post key={post._id} post={post} loginUser={authState.user} />) )}
             </Stack>
-            {posteos && 
-            <Pagination 
-                count={posteos.totalPages} 
-                hideNextButton={!posteos.hasNextPage} 
-                hidePrevButton={!posteos.hasPrevPage} 
-                page={posteos.page} 
-                onChange={handleChangePage}
-            /> 
-            }
+            <Stack className="stackPaginacion">
+                {posteos && 
+                    <Pagination 
+                        count={posteos.totalPages} 
+                        hideNextButton={!posteos.hasNextPage} 
+                        hidePrevButton={!posteos.hasPrevPage} 
+                        page={posteos.page} 
+                        onChange={handleChangePage}
+                    /> 
+                }
+            </Stack>
         </Container>
     );
 }

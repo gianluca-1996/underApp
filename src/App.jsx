@@ -19,15 +19,13 @@ function App() {
         <NotificationProvider>
             <AuthProvider>
                 <BrowserRouter>
-                  <ResponsiveAppBar />
-                  <BoxContainer>
-                      <Routes>
-                        <Route path='/' element={<><h1>Landing Page</h1></>}/>
-                        <Route path='/login' element={<Login />}/>
-                        <Route path='/logout' element={<Logout />}/>
-                        {<Route path='comunidad' element={<PrivateRoute component={PostContainer} />} />}
-                      </Routes>
-                  </BoxContainer>
+                  <ResponsiveAppBar />                  
+                    <Routes>
+                      <Route path='/' element={<><h1>Landing Page</h1></>}/>
+                      <Route path='/login' element={<Login />}/>
+                      <Route path='/logout' element={<Logout />}/>
+                      {<Route path='comunidad' element={<PrivateRoute component={PostContainer} />} />}
+                    </Routes>
                 </BrowserRouter>
             </AuthProvider>
         </NotificationProvider>
