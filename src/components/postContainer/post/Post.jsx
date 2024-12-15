@@ -6,8 +6,6 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useState } from 'react';
 import useAxiosInterceptor from '../../../config/axios.config';
 import Skeleton from '@mui/material/Skeleton';
@@ -15,9 +13,10 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CommentContainer from '../../commentContainer/CommentContainer';
 import Grid from '@mui/material/Grid2';
+import MenuPost from './menuPost/MenuPost';
 import './style.css'
 
-const Post = ({post, loginUser}) => {
+const Post = ({post, loginUser, handleDeletePost}) => {
 
   const axios = useAxiosInterceptor();
   const [postUser, setPostUser] = useState();
@@ -79,9 +78,8 @@ const Post = ({post, loginUser}) => {
             <Avatar aria-label="recipe" alt="Remy Sharp" src={`${postUser.foto_perfil}`} />
           }
           action={
-            <IconButton aria-label="settings" color='inherit'>
-              <MoreVertIcon />
-            </IconButton>
+            post.created_id == loginUser._id &&
+            (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
           title={postUser.usuario}
           subheader={String(new Date(post.created_dt).toLocaleDateString() + ' | ' + new Date(post.created_dt).toLocaleTimeString())}

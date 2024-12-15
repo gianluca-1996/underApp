@@ -7,6 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useNotification } from "../context/NotificationContext";
 import './style.css'
 
 const PostContainer = () => {
@@ -15,6 +16,7 @@ const PostContainer = () => {
     const [posteos, setPosteos] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     useEffect(() => {
         const getPosteos = async () => {
@@ -33,6 +35,18 @@ const PostContainer = () => {
 
         getPosteos();
     }, []);
+
+    // Función para eliminar un post
+    const handleDeletePost = async (postId) => {
+        try {
+            let response = await axios.delete(`/post/eliminaPost/${postId}`);
+            showNotification(response.data, 'success');
+            response = await axios.get('/post/');
+            setPosteos(response.data);
+        } catch (error) {
+            showNotification(error.message, 'error');
+        }
+    };
 
     const handleChangePage = async (event, value) => {
         setIsLoading(true);
@@ -62,7 +76,7 @@ const PostContainer = () => {
                 <h1>COMUNIDAD</h1>
             </div>
             <Stack className="stackPosteos">
-            {posteos.docs.map(post => (<Post key={post._id} post={post} loginUser={authState.user} />) )}
+            {posteos.docs.map(post => (<Post key={post._id} post={post} loginUser={authState.user} handleDeletePost={handleDeletePost} />) )}
             </Stack>
             <Stack className="stackPaginacion">
                 {posteos && 
