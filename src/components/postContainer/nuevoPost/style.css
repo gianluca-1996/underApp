@@ -1,0 +1,47 @@
+/* Contenedor principal */
+.new-post-container {
+    background-color: #424242;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 70%;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+  
+/* Título del formulario */
+.new-post-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 16px;
+}
+  
+  /* Estilos del campo de texto */
+.new-post-input .MuiInputBase-root {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+  
+/* Espaciado del campo de texto */
+.new-post-input {
+    margin-bottom: 20px;
+}
+  
+  /* Botón de Publicar */
+.new-post-button {
+    background-color: #d32f2f !important;
+    color: white !important;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 10px !important;
+    border-radius: 4px;
+}
+  
+.new-post-button:hover {
+    background-color: #b71c1c !important;
+}  
+
+@media (max-width: 500px) {
+    .new-post-container{
+        max-width: 500px;
+    }
+}

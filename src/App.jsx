@@ -19,6 +19,7 @@ function App() {
         <NotificationProvider>
             <AuthProvider>
                 <BrowserRouter>
+                <BoxContainer>
                   <ResponsiveAppBar />                  
                     <Routes>
                       <Route path='/' element={<><h1>Landing Page</h1></>}/>
@@ -26,6 +27,7 @@ function App() {
                       <Route path='/logout' element={<Logout />}/>
                       {<Route path='comunidad' element={<PrivateRoute component={PostContainer} />} />}
                     </Routes>
+                  </BoxContainer>
                 </BrowserRouter>
             </AuthProvider>
         </NotificationProvider>

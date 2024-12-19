@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNotification } from "../context/NotificationContext";
+import NuevoPost from "./nuevoPost/NuevoPost";
 import './style.css'
 
 const PostContainer = () => {
@@ -48,6 +49,19 @@ const PostContainer = () => {
         }
     };
 
+    // Función para agregar un post
+    const handleAddPost = async (texto) => {
+        try {
+            if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
+            let response = await axios.post('/post/', {texto});
+            showNotification(response.data, 'success');
+            response = await axios.get('/post/');
+            setPosteos(response.data);
+        } catch (error) {
+            showNotification(error.message, 'error');
+        }
+    };
+
     const handleChangePage = async (event, value) => {
         setIsLoading(true);
         try {
@@ -63,6 +77,8 @@ const PostContainer = () => {
         }
     }
 
+
+
     if(isLoading){
         return (<Container style={{justifyItems: 'center', marginTop: '15%'}}>
             <Stack>
@@ -74,6 +90,9 @@ const PostContainer = () => {
         <Container className="containerPosteos">
             <div style={{textAlign: 'center', color: 'gold'}}>
                 <h1>COMUNIDAD</h1>
+            </div>
+            <div>
+                <NuevoPost addPost={handleAddPost}/>
             </div>
             <Stack className="stackPosteos">
             {posteos.docs.map(post => (<Post key={post._id} post={post} loginUser={authState.user} handleDeletePost={handleDeletePost} />) )}

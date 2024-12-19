@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid2';
 
 const Comentario = ({comentario}) => {
     
-    const created_dt = new Date(comentario.created_dt).toLocaleTimeString().slice(0, 5) + 'hs.' + ' - '  + new Date(comentario.created_dt).toLocaleDateString();
+    const created_dt = new Date(comentario.created_dt).toLocaleDateString() + ' | ' + new Date(comentario.created_dt).toLocaleTimeString().slice(0, 5) + 'hs';
     
     return(
         <Grid container spacing={1} columns={8}>

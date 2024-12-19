@@ -82,7 +82,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
             (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
           title={postUser.usuario}
-          subheader={String(new Date(post.created_dt).toLocaleDateString() + ' | ' + new Date(post.created_dt).toLocaleTimeString())}
+          subheader={String(new Date(post.created_dt).toLocaleDateString() + ' | ' + new Date(post.created_dt).toLocaleTimeString().slice(0, 5) + 'hs')}
         />
         
         <Divider />

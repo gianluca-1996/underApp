@@ -1,6 +1,7 @@
 /* App.css */
 .app {
     position: relative;
+    min-height: 100vh; /* Altura mínima de la pantalla */
 }
 
 .content {
@@ -9,4 +10,17 @@
     padding: 20px;
     color: white; /* Asegura que el texto sea visible sobre el fondo oscuro */
     min-height: 100vh; /* Altura mínima de la pantalla */
+}
+
+h1 {
+    font-family: 'Bangers', cursive;
+    color: #FFC107;
+    text-shadow: 2px 2px #212121;
+    font-size: 70px;
+}
+
+@media (max-width: 500px){
+    h1{
+        font-size: 50px;
+    }
 }
