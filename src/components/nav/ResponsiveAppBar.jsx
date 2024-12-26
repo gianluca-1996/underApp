@@ -1,6 +1,6 @@
 import './style.css'
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,23 +13,21 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { grey } from '@mui/material/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
 import { useContext } from 'react';
+import { RouteContext } from '../context/RoutesContext';
 import MainMenu from '../menuPrincipal/MainMenu';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-//paginas del menu
-const paginasEstaticas = [
-  {tittle: 'Comunidad', path: '/comunidad'}
-];
-
-//paginas del menu de usuario segun si esta logueado
-const menuUserLogin = [{tittle: 'Cerrar sesion', path: '/logout'}];
-const menuUserLogout = [{tittle: 'Iniciar sesion', path: '/login'}, {tittle: 'Registrarse', path: '/registrarse'}];
 
 const ResponsiveAppBar = () => {
+  
+  //paginas del menu de usuario segun si esta logueado
+  const menuUserLogin = [{tittle: 'Cerrar sesion', path: '/logout'}];
+  const menuUserLogout = [{tittle: 'Iniciar sesion', path: '/login'}, {tittle: 'Registrarse', path: '/registrarse'}];
+  
   const { authState } = useContext(AuthContext);
+  const { rutas } = useContext(RouteContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [menu, setMenu] = useState([]);
 
@@ -41,20 +39,11 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    const menuUsuario = () => {
-      if(authState.user) setMenu(paginasEstaticas);
-      else setMenu([{tittle: 'Home', path: '/home'}]);
-    }
-
-    menuUsuario();
-  }, [authState]);
-
   return (
     <AppBar position="static" color="transparent" >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{justifyContent: 'space-between'}}>
-          <MainMenu menu={menu} />
+          <MainMenu menu={rutas ? rutas : []} />
           <h4>LOGO</h4>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Menu">

@@ -1,15 +1,12 @@
 import './App.css'
-
 import { AuthProvider } from './components/context/AuthContext';
-import Login from './components/login/Login'
-import Logout from './components/logout/Logout';
+import { BrowserRouter } from 'react-router-dom';
+import { NotificationProvider } from './components/context/NotificationContext';
+import { RoutesProvider } from './components/context/RoutesContext';
 import Background from './components/background/Background';
 import BoxContainer from './components/boxContainer/BoxContainer';
 import ResponsiveAppBar from './components/nav/ResponsiveAppBar';
-import PostContainer from './components/postContainer/PostContainer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './components/privateRoute/PrivateRoute';
-import { NotificationProvider } from './components/context/NotificationContext';
+import RoutesApp from './components/RoutesApp';
 
 function App() {
   return (
@@ -19,14 +16,11 @@ function App() {
         <NotificationProvider>
             <AuthProvider>
                 <BrowserRouter>
-                <BoxContainer>
-                  <ResponsiveAppBar />                  
-                    <Routes>
-                      <Route path='/' element={<><h1>Landing Page</h1></>}/>
-                      <Route path='/login' element={<Login />}/>
-                      <Route path='/logout' element={<Logout />}/>
-                      {<Route path='comunidad' element={<PrivateRoute component={PostContainer} />} />}
-                    </Routes>
+                  <BoxContainer>
+                    <RoutesProvider>
+                      <ResponsiveAppBar />
+                      <RoutesApp />
+                    </RoutesProvider>
                   </BoxContainer>
                 </BrowserRouter>
             </AuthProvider>

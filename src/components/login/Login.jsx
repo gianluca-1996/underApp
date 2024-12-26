@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { grey } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../context/AuthContext';
 import Alert from '@mui/material/Alert';
@@ -15,7 +15,12 @@ const Login = () => {
     const { login } = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState();
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(token) navigate('/');
+    }, [])
 
     const onSubmit = async (data) => {
     try {
@@ -30,7 +35,7 @@ const Login = () => {
         
         localStorage.setItem('token', response.data.token);
         login(response.data.user);
-        navigate('/');
+        navigate('/comunidad');
     } catch (error) {
         setErrorMessage(error.response? ('Error | ' + error.response.data) : (error.message + ' | No se pudo conectar con el servidor'));
         setTimeout(() => {

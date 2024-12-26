@@ -34,11 +34,10 @@ const Post = ({post, loginUser, handleDeletePost}) => {
       }
     };
 
-    const getReacciones = async () => {
+    const getReacciones = () => {
       try {
-        const response = await axios.get(`/post/reacciones/${post._id}`);
-        response.data.reacciones.forEach(reaccion => ( (reaccion.usuario == loginUser._id) && setMiReaccion(true) ) )
-        setReacciones(response.data.reacciones);
+        post.reacciones.forEach(reaccion => ( (reaccion.usuario == loginUser._id) && setMiReaccion(true) ) )
+        setReacciones(post.reacciones);
       } catch (error) {
         console.log(error.message)
       }

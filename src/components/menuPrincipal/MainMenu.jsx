@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -12,7 +13,8 @@ import { grey } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
 
 const MainMenu = ({menu}) => {
-  const [open, setOpen] = React.useState(false);
+  
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -41,12 +43,12 @@ const MainMenu = ({menu}) => {
       <Divider />
       <List>
         {menu.map((page) => (
-          <ListItem key={page.tittle} disablePadding>
+          <ListItem key={page.nombre} disablePadding>
             <ListItemButton sx={{'&:hover': {
             bgcolor: '#d32f2f',
           }}}>
             <Link to={page.path} style={{textDecoration: 'none', color: 'white'}}>
-              <ListItemText primary={page.tittle} />
+              <ListItemText primary={page.nombre} />
             </Link>
             </ListItemButton>
           </ListItem>

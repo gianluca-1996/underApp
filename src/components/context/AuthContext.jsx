@@ -29,14 +29,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect( () => {
-        const getInfoUsuario = async () => {
-            if(!localStorage.getItem('token')){
-                setAuthState(prev => ({
-                    ...prev,
-                    isLoading: false
-                }));
-                return;
-            } 
+        const getInfoUsuario = async () => { 
             try {
                 const response = await axios.get('/user/getUserByToken');
                 login(response.data.payload);
