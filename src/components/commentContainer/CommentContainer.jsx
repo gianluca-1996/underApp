@@ -9,7 +9,7 @@ import Comentario from './comentario/Comentario';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import useAxiosInterceptor from '../../config/axios.config';
-import { useNotification } from '../context/NotificationContext';
+import { useNotification } from '../../context/NotificationContext';
 
 import './style.css'
 

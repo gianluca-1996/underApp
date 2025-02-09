@@ -1,17 +1,17 @@
 import { Container, Stack } from "@mui/material";
 import useAxiosInterceptor from '../../config/axios.config';
 import { useEffect, useState } from "react";
-import Post from "./post/Post";
+import Post from "./components/post/Post";
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { useNotification } from "../context/NotificationContext";
-import NuevoPost from "./nuevoPost/NuevoPost";
+import { AuthContext } from '../../context/AuthContext';
+import { useNotification } from "../../context/NotificationContext";
+import NuevoPost from "./components/nuevoPost/NuevoPost";
 import './style.css'
 
-const PostContainer = () => {
+const PostContainer = ({userId}) => {
     const { logout, authState } = useContext(AuthContext);
     const axios = useAxiosInterceptor();
     const [posteos, setPosteos] = useState();
@@ -22,7 +22,7 @@ const PostContainer = () => {
     useEffect(() => {
         const getPosteos = async () => {
             try {
-                const response = await axios.get('/post/');
+                const response = userId ? await axios.get('/post/propios') : await axios.get('/post/');
                 setIsLoading(false);
                 setPosteos(response.data);
             } catch (error) {
@@ -40,10 +40,9 @@ const PostContainer = () => {
     // Función para eliminar un post
     const handleDeletePost = async (postId) => {
         try {
-            let response = await axios.delete(`/post/eliminaPost/${postId}`);
+            const response = await axios.delete(`/post/eliminaPost/${postId}`);
             showNotification(response.data, 'success');
-            response = await axios.get('/post/');
-            setPosteos(response.data);
+            setPosteos(prev => ({...prev, docs: posteos.docs.filter(post => post._id !== postId)}));
         } catch (error) {
             showNotification(error.message, 'error');
         }
@@ -55,7 +54,7 @@ const PostContainer = () => {
             if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
             let response = await axios.post('/post/', {texto});
             showNotification(response.data, 'success');
-            response = await axios.get('/post/');
+            response = userId ? await axios.get('/post/propios') : await axios.get('/post/');
             setPosteos(response.data);
         } catch (error) {
             showNotification(error.message, 'error');
@@ -65,7 +64,7 @@ const PostContainer = () => {
     const handleChangePage = async (event, value) => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`/post/?page=${value}`);
+            const response = userId ? await axios.get(`/post/propios/?page=${value}`) : await axios.get(`/post/?page=${value}`);
             setIsLoading(false);
             setPosteos(response.data);
         } catch (error) {

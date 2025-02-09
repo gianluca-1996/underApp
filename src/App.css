@@ -10,6 +10,7 @@
     padding: 20px;
     color: white; /* Asegura que el texto sea visible sobre el fondo oscuro */
     min-height: 100vh; /* Altura mínima de la pantalla */
+    padding: 0;
 }
 
 h1 {

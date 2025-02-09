@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import useAxiosInterceptor from "../../config/axios.config";
+import useAxiosInterceptor from "../config/axios.config";
 
 // Crea el contexto
 export const AuthContext = createContext();

@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import useAxiosInterceptor from '../../../../config/axios.config';
+import useAxiosInterceptor from '../../../../../config/axios.config';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
-import { useNotification } from '../../../context/NotificationContext';
+import { useNotification } from '../../../../../context/NotificationContext';
 
 const MenuPost = ({postId, handleDeletePost}) => {
   const [anchorEl, setAnchorEl] = useState(null);

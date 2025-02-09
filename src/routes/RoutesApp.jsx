@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { RouteContext } from "./context/RoutesContext";
-import { AuthContext } from "./context/AuthContext";
+import { RouteContext } from "../context/RoutesContext";
+import { AuthContext } from "../context/AuthContext";
 import { Container, Stack } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
-import Login from "./login/Login";
-import Logout from "./logout/Logout";
+import Login from "../pages/login/Login";
+import Logout from "../components/logout/Logout";
 
 const RoutesApp = () => {
     const {rutas} = useContext(RouteContext);

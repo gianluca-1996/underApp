@@ -1,7 +1,5 @@
-// NotificationContext.js
 import { createContext, useContext, useState, useCallback } from 'react';
-import Alert from '@mui/material/Alert';
-import './style.css'
+import Notification from '../components/notification/Notification';
 
 const NotificationContext = createContext();
 
@@ -20,12 +18,5 @@ export const NotificationProvider = ({ children }) => {
       {children}
       {notification && <Notification message={notification.message} type={notification.type} />}
     </NotificationContext.Provider>
-  );
-};
-
-// Componente Notification
-const Notification = ({ message, type }) => {
-  return (
-    <Alert severity={type}>{message}</Alert>
   );
 };

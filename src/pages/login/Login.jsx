@@ -1,50 +1,41 @@
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import { grey } from '@mui/material/colors';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { AuthContext } from '../context/AuthContext';
-import Alert from '@mui/material/Alert';
-import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
+import useAxiosInterceptor from '../../config/axios.config';
 import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../../context/NotificationContext';
 
 const Login = () => {
-    const { login } = useContext(AuthContext);
-    const [errorMessage, setErrorMessage] = useState();
+    const axios = useAxiosInterceptor();
+    const { showNotification } = useNotification();
+    const { login, authState } = useContext(AuthContext);
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if(token) navigate('/');
+        if(authState.user) navigate('/');
     }, [])
 
     const onSubmit = async (data) => {
     try {
-        const response = await axios({
-            method: 'post',
-            url: 'http://localhost:8080/user/login',
-            data: {
-                email: data.usuario,
-                password: data.password
-            }
-        });
-        
+        const response = await axios.post('/user/login', {email: data.usuario, password: data.password});
         localStorage.setItem('token', response.data.token);
         login(response.data.user);
-        navigate('/comunidad');
+        navigate('/');
     } catch (error) {
-        setErrorMessage(error.response? ('Error | ' + error.response.data) : (error.message + ' | No se pudo conectar con el servidor'));
-        setTimeout(() => {
-            setErrorMessage(null);
-        }, 5000);
+        showNotification(error.response.data, 'error');
     }
     }
 
-    return(    
+    if(authState.isLoading) return <CircularProgress />
+    if(!authState.isLoading && !authState.user) return(    
         <Container >
             <Stack spacing={2} marginTop={'10%'} direction="column" justifyContent={'center'} alignItems={'center'}>
                 <Grid sx={{background: grey[900]}}
@@ -81,9 +72,6 @@ const Login = () => {
                                 </Grid>
                             </Stack>
                         </Stack>
-                </Grid>
-                <Grid width={{xs: '100%', md: '40%'}} height={'6vh'}>
-                    {errorMessage && <Alert severity="error" color='error'>{errorMessage}</Alert>}
                 </Grid>
             </Stack>
         </Container>

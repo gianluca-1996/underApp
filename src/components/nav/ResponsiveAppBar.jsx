@@ -14,9 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { grey } from '@mui/material/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useContext } from 'react';
-import { RouteContext } from '../context/RoutesContext';
+import { RouteContext } from '../../context/RoutesContext';
 import MainMenu from '../menuPrincipal/MainMenu';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 

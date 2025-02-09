@@ -7,11 +7,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useEffect, useState } from 'react';
-import useAxiosInterceptor from '../../../config/axios.config';
+import useAxiosInterceptor from '../../../../config/axios.config';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import CommentContainer from '../../commentContainer/CommentContainer';
+import CommentContainer from '../../../../components/commentContainer/CommentContainer'
 import Grid from '@mui/material/Grid2';
 import MenuPost from './menuPost/MenuPost';
 import './style.css'
@@ -81,7 +81,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
             (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
           title={postUser.usuario}
-          subheader={String(new Date(post.created_dt).toLocaleDateString() + ' | ' + new Date(post.created_dt).toLocaleTimeString().slice(0, 5) + 'hs')}
+          subheader={`${new Date(post.created_dt).toLocaleDateString()} | ${new Date(post.created_dt).getHours().toString().padStart(2, '0')}:${new Date(post.created_dt).getMinutes().toString().padStart(2, '0')}hs`}
         />
         
         <Divider />

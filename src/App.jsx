@@ -1,12 +1,12 @@
 import './App.css'
-import { AuthProvider } from './components/context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
-import { NotificationProvider } from './components/context/NotificationContext';
-import { RoutesProvider } from './components/context/RoutesContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { RoutesProvider } from './context/RoutesContext';
 import Background from './components/background/Background';
 import BoxContainer from './components/boxContainer/BoxContainer';
 import ResponsiveAppBar from './components/nav/ResponsiveAppBar';
-import RoutesApp from './components/RoutesApp';
+import RoutesApp from './routes/RoutesApp';
 
 function App() {
   return (

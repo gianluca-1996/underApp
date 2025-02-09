@@ -1,9 +1,9 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import { Container } from '@mui/material';
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const Logout = () => {
     const { logout } = useContext(AuthContext);

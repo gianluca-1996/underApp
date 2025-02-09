@@ -1,9 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
-import useAxiosInterceptor from "../../config/axios.config";
+import useAxiosInterceptor from "../config/axios.config";
 import { useNotification } from "./NotificationContext";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
-import PostContainer from "../postContainer/PostContainer";
+import PostContainer from "../pages/feed/PostContainer";
+import Perfil from "../pages/miPerfil/Perfil";
 
 // Crea el contexto
 export const RouteContext = createContext();
@@ -19,7 +20,8 @@ export const RoutesProvider = ({ children }) => {
         {nombre: 'comunidad', path: '/comunidad', element: <PostContainer />},
         {nombre: 'test', path: '/test', element: <h1>Test</h1>},
         {nombre: 'pruebaAuth', path: '/pruebaAuth', element: <h1>PruebaAuth</h1>},
-        {nombre: 'home', path: '/', element: <h1>Home</h1>}
+        {nombre: 'home', path: '/', element: <h1>Home</h1>},
+        {nombre: 'perfil', path: '/perfil', element: <Perfil />}
     ]
 
     useEffect( () => {
