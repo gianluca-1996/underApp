@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import PostContainer from "../pages/feed/PostContainer";
 import Perfil from "../pages/miPerfil/Perfil";
+import PerfilUsuario from "../pages/perfilUsuario/PerfilUsuario";
 
 // Crea el contexto
 export const RouteContext = createContext();

@@ -6,6 +6,8 @@ import { Container, Stack } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
 import Login from "../pages/login/Login";
 import Logout from "../components/logout/Logout";
+import PerfilUsuario from "../pages/perfilUsuario/PerfilUsuario";
+import Perfil from "../pages/miPerfil/Perfil";
 
 const RoutesApp = () => {
     const {rutas} = useContext(RouteContext);
@@ -22,6 +24,8 @@ const RoutesApp = () => {
     if(authState.user) {
         return <Routes>
                     {rutas.map(ruta => (<Route key={ruta.nombre} path={ruta.path} element={ruta.element}/>))}
+                    <Route key={'miPerfil'} path='/perfil' element={<Perfil />}/>
+                    <Route key={'perfilUsuario'} path='/perfilUsuario/:idUser' element={<PerfilUsuario />}/>
                     <Route key={'login'} path='/login' element={<Login />}/>
                     <Route key={'logout'} path='/logout' element={<Logout />}/>
                     <Route key={'some'} path='/*' element={<h1>Recurso no encontrado</h1>}/>

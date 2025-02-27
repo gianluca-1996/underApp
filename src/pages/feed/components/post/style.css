@@ -2,6 +2,7 @@
     width: 70%;
     margin: 2%;
     background-color: #424242 !important;
+    box-shadow: 0 8px 8px rgb(0, 0, 0) !important;
 }
 
 
@@ -18,18 +19,11 @@
     height: 20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
     .cardPost{
         width: 100%;
         margin: 2%;
         background-color: #424242 !important;
-    }
-}
-
-@media (min-width: 500px) and (max-width: 800px) {
-    .cardPost{
-        width: 100%;
-        margin: 2%;
-        background-color: #424242 !important;
+        box-shadow: 0 8px 8px rgb(0, 0, 0) !important;
     }
 }

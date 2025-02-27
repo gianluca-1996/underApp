@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import PostContainer from '../../../feed/PostContainer';
 import PosteosUsuario from '../../../../components/posteosUsuario/PosteosUsuario';
 
 function CustomTabPanel(props) {

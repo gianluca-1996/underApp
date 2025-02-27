@@ -7,28 +7,32 @@ import { AuthContext } from '../../context/AuthContext';
 import useAxiosInterceptor from '../../config/axios.config';
 import { useNotification } from '../../context/NotificationContext';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const Perfil = () => {
+const PerfilUsuario = () => {
   const { authState } = useContext(AuthContext);
   const [user, setUser] = useState();
   const axios = useAxiosInterceptor();
+  const { idUser } = useParams();
   const { showNotification } = useNotification();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get(`/user/getUserById/${authState.user._id}`);
+        const response = await axios.get(`/user/getUserById/${idUser}`);
         setUser(response.data);
       } catch (error) {
         showNotification(error.message, 'error');
       }
     }
 
-    getUser();
+    if(authState.user?._id === idUser)  navigate('/perfil');
+    else getUser();
   }, [])
 
-
-  if(authState.isLoading || !user){
+  
+  if(!user){
     return (<Box style={{justifyItems: 'center', marginTop: '15%'}}>
         <Box>
             <CircularProgress />
@@ -36,6 +40,7 @@ const Perfil = () => {
     </Box>)
   }
 
+  
   return (
     <Box>
       {/* Foto de Portada y Perfil */}
@@ -90,9 +95,9 @@ const Perfil = () => {
       </Grid>
 
       {/* Secciones de la Página */}
-      <Secciones userId={authState.user._id}/>
+      {user && <Secciones userId={user._id}/>}
     </Box>
   );
 };
 
-export default Perfil;
+export default PerfilUsuario;

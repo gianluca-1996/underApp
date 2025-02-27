@@ -1,17 +1,16 @@
 import { Container, Stack } from "@mui/material";
 import useAxiosInterceptor from '../../config/axios.config';
 import { useEffect, useState } from "react";
-import Post from "./components/post/Post";
+import Post from "../../pages/feed/components/post/Post";
 import { useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNotification } from "../../context/NotificationContext";
-import NuevoPost from "./components/nuevoPost/NuevoPost";
 import './style.css'
 
-const PostContainer = ({userId}) => {
+const PosteosUsuario = ({userId}) => {
     const { logout, authState } = useContext(AuthContext);
     const axios = useAxiosInterceptor();
     const [posteos, setPosteos] = useState();
@@ -22,15 +21,11 @@ const PostContainer = ({userId}) => {
     useEffect(() => {
         const getPosteos = async () => {
             try {
-                const response = userId ? await axios.get(`/post/getByUserId/${userId}`) : await axios.get('/post/');
+                const response = await axios.get(`/post/getByUserId/${userId}`);
                 setIsLoading(false);
                 setPosteos(response.data);
             } catch (error) {
-                if(error.response.status === 401){
-                    alert('Su sesion ha expirado');
-                    logout();        
-                    navigate('/login');
-                } 
+                showNotification(error.message, 'error');
             }
         };
 
@@ -48,31 +43,14 @@ const PostContainer = ({userId}) => {
         }
     };
 
-    // Función para agregar un post
-    const handleAddPost = async (texto) => {
-        try {
-            if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
-            let response = await axios.post('/post/', {texto});
-            showNotification(response.data, 'success');
-            response = userId ? await axios.get(`/post/getByUserId/${userId}`) : await axios.get('/post/');
-            setPosteos(response.data);
-        } catch (error) {
-            showNotification(error.message, 'error');
-        }
-    };
-
     const handleChangePage = async (event, value) => {
         setIsLoading(true);
         try {
-            const response = userId ? await axios.get(`/post/getByUserId/${userId}/?page=${value}`) : await axios.get(`/post/?page=${value}`);
+            const response = await axios.get(`/post/getByUserId/${userId}/?page=${value}`);
             setIsLoading(false);
             setPosteos(response.data);
         } catch (error) {
-            if(error.response.status === 401){
-                alert('Su sesion ha expirado');
-                logout();        
-                navigate('/login');
-            }
+            showNotification(error.message, 'error');
         }
     }
 
@@ -85,14 +63,9 @@ const PostContainer = ({userId}) => {
             </Stack>
         </Container>)
     }
+    
     return(
         <Container className="containerPosteos">
-            <div style={{textAlign: 'center', color: 'gold'}}>
-                <h1>COMUNIDAD</h1>
-            </div>
-            {!userId && <div>
-                <NuevoPost addPost={handleAddPost}/>
-            </div>}
             <Stack className="stackPosteos">
             {posteos.docs.map(post => (<Post key={post._id} post={post} loginUser={authState.user} handleDeletePost={handleDeletePost} />) )}
             </Stack>
@@ -111,4 +84,4 @@ const PostContainer = ({userId}) => {
     );
 }
 
-export default PostContainer;
+export default PosteosUsuario;

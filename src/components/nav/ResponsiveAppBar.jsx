@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+import { Avatar } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { grey } from '@mui/material/colors';
@@ -23,13 +23,13 @@ import { Link } from 'react-router-dom';
 const ResponsiveAppBar = () => {
   
   //paginas del menu de usuario segun si esta logueado
-  const menuUserLogin = [{tittle: 'Cerrar sesion', path: '/logout'}];
+  const menuUserLogin = [{tittle: 'Mi perfil', path: '/perfil'}, {tittle: 'Cerrar sesion', path: '/logout'}];
   const menuUserLogout = [{tittle: 'Iniciar sesion', path: '/login'}, {tittle: 'Registrarse', path: '/registrarse'}];
   
   const { authState } = useContext(AuthContext);
   const { rutas } = useContext(RouteContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [menu, setMenu] = useState([]);
+  //const [menu, setMenu] = useState([]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -48,7 +48,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {authState.user ? <Avatar alt="Remy Sharp" src={authState.user.foto_perfil} /> : <AccountCircleIcon sx={{color: grey[50]}} fontSize="large"/>}
+                {authState.user ? <Avatar alt="Remy Sharp" src={`/src/assets/img/${authState.user?.foto_perfil}`} /> : <AccountCircleIcon sx={{color: grey[50]}} fontSize="large"/>}
               </IconButton>
             </Tooltip>
             <Menu

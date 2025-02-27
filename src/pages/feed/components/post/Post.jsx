@@ -14,6 +14,7 @@ import Divider from '@mui/material/Divider';
 import CommentContainer from '../../../../components/commentContainer/CommentContainer'
 import Grid from '@mui/material/Grid2';
 import MenuPost from './menuPost/MenuPost';
+import { Link } from 'react-router-dom';
 import './style.css'
 
 const Post = ({post, loginUser, handleDeletePost}) => {
@@ -48,7 +49,6 @@ const Post = ({post, loginUser, handleDeletePost}) => {
   }, [])
 
   const handleReaccion = async () => {
-    //TODO: si miReaccion = true -> sacar la reaccion del post. sino -> agregar reaccion
     if(miReaccion){
       try {
         const response = await axios.delete(`/post/eliminaMeGusta/${post._id}`);
@@ -74,7 +74,9 @@ const Post = ({post, loginUser, handleDeletePost}) => {
       { postUser ? 
         (<><CardHeader className='cardHeader'
           avatar={
-            <Avatar aria-label="recipe" alt="Remy Sharp" src={`${postUser.foto_perfil}`} />
+            <Link to={`/perfilUsuario/${post.created_id}`}>
+              <Avatar aria-label="recipe" alt="Remy Sharp" src={`/src/assets/img/${postUser.foto_perfil}`} />
+            </Link>
           }
           action={
             post.created_id == loginUser._id &&

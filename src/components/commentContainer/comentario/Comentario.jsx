@@ -9,7 +9,7 @@ const Comentario = ({comentario}) => {
     return(
         <Grid container spacing={1} columns={8}>
             <Grid size={2} sx={{marginTop: '5%', justifyItems: 'center'}}>
-                <Avatar alt={comentario.usuario.usuario} src={comentario.usuario.foto_perfil} />
+                <Avatar alt={comentario.usuario.usuario} src={`/src/assets/img/${comentario.usuario.foto_perfil}`} />
             </Grid>
             <Grid size={6}>
                 <Stack>
