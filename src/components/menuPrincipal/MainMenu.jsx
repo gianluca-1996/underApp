@@ -43,15 +43,15 @@ const MainMenu = ({menu}) => {
       <Divider />
       <List>
         {menu.map((page) => (
-          <ListItem key={page.nombre} disablePadding>
-            <ListItemButton sx={{'&:hover': {
-            bgcolor: '#d32f2f',
-          }}}>
-            <Link to={page.path} style={{textDecoration: 'none', color: 'white'}}>
-              <ListItemText primary={page.nombre} />
+            <Link key={page.nombre} to={page.path} style={{textDecoration: 'none', color: 'white'}}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{'&:hover': {
+                bgcolor: '#d32f2f',
+              }}}>
+                  <ListItemText primary={page.nombre} />
+                </ListItemButton>
+              </ListItem>
             </Link>
-            </ListItemButton>
-          </ListItem>
         ))}
       </List>
     </Box>

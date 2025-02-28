@@ -20,32 +20,21 @@ import './style.css'
 const Post = ({post, loginUser, handleDeletePost}) => {
 
   const axios = useAxiosInterceptor();
-  const [postUser, setPostUser] = useState();
   const [comentarios, setComentarios] = useState(post.comentarios);
   const [reacciones, setReacciones] = useState([]);
   const [miReaccion, setMiReaccion] = useState(false);
 
   useEffect(() => {
-    const getInfoUsuario = async () => {
-      try {
-        const response = await axios.get(`/user/getUserById/${post.created_id}`);
-        setPostUser(response.data);
-      } catch (error) {
-        console.log(error.message)
-      }
-    };
-
     const getReacciones = () => {
       try {
-        post.reacciones.forEach(reaccion => ( (reaccion.usuario == loginUser._id) && setMiReaccion(true) ) )
+        post.reacciones.forEach(reaccion => ( (reaccion.usuario._id == loginUser._id) && setMiReaccion(true) ) )
         setReacciones(post.reacciones);
       } catch (error) {
         console.log(error.message)
       }
-    };
-    
-    getInfoUsuario();
-    getReacciones()
+    }
+
+    getReacciones();
   }, [])
 
   const handleReaccion = async () => {
@@ -71,18 +60,18 @@ const Post = ({post, loginUser, handleDeletePost}) => {
 
   return (
     <Card className='cardPost'>
-      { postUser ? 
+      { post.created_id ? 
         (<><CardHeader className='cardHeader'
           avatar={
-            <Link to={`/perfilUsuario/${post.created_id}`}>
-              <Avatar aria-label="recipe" alt="Remy Sharp" src={`/src/assets/img/${postUser.foto_perfil}`} />
+            <Link to={`/perfilUsuario/${post.created_id._id}`}>
+              <Avatar aria-label="recipe" alt="Remy Sharp" src={`/src/assets/img/${post.created_id.foto_perfil}`} />
             </Link>
           }
           action={
             post.created_id == loginUser._id &&
             (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
-          title={postUser.usuario}
+          title={post.created_id.usuario}
           subheader={`${new Date(post.created_dt).toLocaleDateString()} | ${new Date(post.created_dt).getHours().toString().padStart(2, '0')}:${new Date(post.created_dt).getMinutes().toString().padStart(2, '0')}hs`}
         />
         
@@ -103,7 +92,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
                 <FavoriteIcon style={{color: miReaccion && 'red'}}/>
               </IconButton>
             </Grid>
-            <Grid display="flex" justifyContent="center" alignItems="center" size={1}>
+            <Grid display="flex" justifyContent="center" alignItems="center" size={1} onClick={() => {console.log(reacciones)}}>
               <p>{reacciones.length}</p>
             </Grid>
           </Grid>

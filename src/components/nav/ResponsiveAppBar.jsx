@@ -70,18 +70,20 @@ const ResponsiveAppBar = () => {
             >
               { authState.isAuthenticated ?
                 (
-                  menuUserLogin.map(page => <MenuItem key={page.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
-                    <Link to={page.path} style={{ textDecoration: "none", color: "white" }}>
-                      <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
+                  menuUserLogin.map(page => <Link key={page.tittle} to={page.path} style={{ textDecoration: "none", color: "white" }}>
+                      <MenuItem onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
+                        <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
+                      </MenuItem>
                     </Link>
-                  </MenuItem>)
+                  )
                 )
                 : 
-                (menuUserLogout.map(page => <MenuItem key={page.tittle} onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
-                  <Link to={page.path} style={{ textDecoration: "none", color: "white" }}>
-                    <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
+                (menuUserLogout.map(page => <Link key={page.tittle} to={page.path} style={{ textDecoration: "none", color: "white" }}>
+                    <MenuItem onClick={handleCloseUserMenu} divider={true} sx={{background: grey[800]}}>
+                        <Typography sx={{ textAlign: 'center' }}>{page.tittle}</Typography>
+                    </MenuItem>
                   </Link>
-                </MenuItem>)
+                )
                 )
               }
             </Menu>

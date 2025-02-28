@@ -2,7 +2,6 @@ import { Container, Stack } from "@mui/material";
 import useAxiosInterceptor from '../../config/axios.config';
 import { useEffect, useState } from "react";
 import Post from "../../pages/feed/components/post/Post";
-import { useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
@@ -11,11 +10,10 @@ import { useNotification } from "../../context/NotificationContext";
 import './style.css'
 
 const PosteosUsuario = ({userId}) => {
-    const { logout, authState } = useContext(AuthContext);
+    const { authState } = useContext(AuthContext);
     const axios = useAxiosInterceptor();
     const [posteos, setPosteos] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
     const { showNotification } = useNotification();
 
     useEffect(() => {

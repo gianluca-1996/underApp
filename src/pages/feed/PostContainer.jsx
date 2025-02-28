@@ -11,7 +11,7 @@ import { useNotification } from "../../context/NotificationContext";
 import NuevoPost from "./components/nuevoPost/NuevoPost";
 import './style.css'
 
-const PostContainer = ({userId}) => {
+const PostContainer = () => {
     const { logout, authState } = useContext(AuthContext);
     const axios = useAxiosInterceptor();
     const [posteos, setPosteos] = useState();
@@ -22,7 +22,7 @@ const PostContainer = ({userId}) => {
     useEffect(() => {
         const getPosteos = async () => {
             try {
-                const response = userId ? await axios.get(`/post/getByUserId/${userId}`) : await axios.get('/post/');
+                const response = await axios.get('/post/');
                 setIsLoading(false);
                 setPosteos(response.data);
             } catch (error) {
@@ -54,7 +54,7 @@ const PostContainer = ({userId}) => {
             if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
             let response = await axios.post('/post/', {texto});
             showNotification(response.data, 'success');
-            response = userId ? await axios.get(`/post/getByUserId/${userId}`) : await axios.get('/post/');
+            response = await axios.get('/post/');
             setPosteos(response.data);
         } catch (error) {
             showNotification(error.message, 'error');
@@ -64,7 +64,7 @@ const PostContainer = ({userId}) => {
     const handleChangePage = async (event, value) => {
         setIsLoading(true);
         try {
-            const response = userId ? await axios.get(`/post/getByUserId/${userId}/?page=${value}`) : await axios.get(`/post/?page=${value}`);
+            const response = await axios.get(`/post/?page=${value}`);
             setIsLoading(false);
             setPosteos(response.data);
         } catch (error) {
@@ -90,7 +90,7 @@ const PostContainer = ({userId}) => {
             <div style={{textAlign: 'center', color: 'gold'}}>
                 <h1>COMUNIDAD</h1>
             </div>
-            {!userId && <div>
+            {<div>
                 <NuevoPost addPost={handleAddPost}/>
             </div>}
             <Stack className="stackPosteos">
