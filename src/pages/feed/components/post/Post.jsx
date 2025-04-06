@@ -40,9 +40,9 @@ const Post = ({post, loginUser, handleDeletePost}) => {
   const handleReaccion = async () => {
     if(miReaccion){
       try {
-        const response = await axios.delete(`/post/eliminaMeGusta/${post._id}`);
-        setReacciones(response.data.reacciones);
+        const response = await axios.delete(`/post/eliminaMeGusta`, {data: {postId: post._id} });
         setMiReaccion(false);
+        setReacciones(response.data.data.reacciones);
       } catch (error) {
         console.log(error.message)
       }
@@ -50,7 +50,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
     else{
       try {
         const response = await axios.post(`/post/agregaMeGusta`, {postId: post._id});
-        setReacciones(response.data.reacciones);
+        setReacciones(response.data.data.reacciones);
         setMiReaccion(true);
       } catch (error) {
         console.log(error.message)
@@ -68,7 +68,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
             </Link>
           }
           action={
-            post.created_id == loginUser._id &&
+            post.created_id._id == loginUser._id &&
             (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
           title={post.created_id.usuario}

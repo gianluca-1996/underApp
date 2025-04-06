@@ -30,7 +30,7 @@ const Login = () => {
         login(response.data.user);
         navigate('/');
     } catch (error) {
-        showNotification(error.response.data, 'error');
+        showNotification(error.response.data.message, 'error');
     }
     }
 

@@ -40,8 +40,8 @@ const PostContainer = () => {
     // Función para eliminar un post
     const handleDeletePost = async (postId) => {
         try {
-            const response = await axios.delete(`/post/eliminaPost/${postId}`);
-            showNotification(response.data, 'success');
+            const response = await axios.delete(`/post/eliminaPost`, {data: {postId: postId}});
+            showNotification(response.data.message, 'success');
             setPosteos(prev => ({...prev, docs: posteos.docs.filter(post => post._id !== postId)}));
         } catch (error) {
             showNotification(error.message, 'error');
@@ -53,7 +53,7 @@ const PostContainer = () => {
         try {
             if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
             let response = await axios.post('/post/', {texto});
-            showNotification(response.data, 'success');
+            showNotification(response.data.message, 'success');
             response = await axios.get('/post/');
             setPosteos(response.data);
         } catch (error) {

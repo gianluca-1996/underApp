@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         const getInfoUsuario = async () => { 
             try {
                 const response = await axios.get('/user/getUserByToken');
-                login(response.data.payload);
+                login(response.data);
             } catch (error) {
                 setAuthState(prev => ({
                     ...prev,

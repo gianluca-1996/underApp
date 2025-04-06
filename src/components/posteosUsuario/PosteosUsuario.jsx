@@ -20,10 +20,10 @@ const PosteosUsuario = ({userId}) => {
         const getPosteos = async () => {
             try {
                 const response = await axios.get(`/post/getByUserId/${userId}`);
-                setIsLoading(false);
                 setPosteos(response.data);
+                setIsLoading(false);
             } catch (error) {
-                showNotification(error.message, 'error');
+                showNotification(error.response.data, 'error');
             }
         };
 
@@ -33,8 +33,8 @@ const PosteosUsuario = ({userId}) => {
     // Función para eliminar un post
     const handleDeletePost = async (postId) => {
         try {
-            const response = await axios.delete(`/post/eliminaPost/${postId}`);
-            showNotification(response.data, 'success');
+            const response = await axios.delete(`/post/eliminaPost`, {data: {postId}});
+            showNotification(response.data.message, 'success');
             setPosteos(prev => ({...prev, docs: posteos.docs.filter(post => post._id !== postId)}));
         } catch (error) {
             showNotification(error.message, 'error');
