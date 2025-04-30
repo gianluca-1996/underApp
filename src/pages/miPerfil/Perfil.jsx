@@ -79,48 +79,30 @@ const Perfil = () => {
       {/* Información Básica */}
       <Grid container sx={{ mt: 8}}>
         <Grid size={{ xs: 12, md: 6 }} sx={{marginLeft: '2%'}}>
-          <Typography variant="h4">{user?.usuario}</Typography>
-          <Stack direction="row" spacing={2} justifyContent={'start'}>
+          <Typography variant="h4" sx={{marginTop: '5%'}}>{user?.usuario}</Typography>
+          <Stack direction="row" spacing={2} sx={{marginTop: '5%', justifyContent: 'start'}}>
             <PlaceIcon/> <Typography>{user?.localidad}</Typography>
           </Stack>
           <Stack direction="row" spacing={2} justifyContent={'start'}>
             <EmailIcon/> <Typography>{user?.email}</Typography>
           </Stack>
-          {/* <Typography variant="body1">
-            <PlaceIcon/> {user?.localidad}
-          </Typography> */}
+          <Stack direction='row' spacing={3} className='stackRedes'>
+            <FacebookIcon/>
+            <InstagramIcon/>
+            <WhatsAppIcon/>
+          </Stack>
           <Stack direction="row" spacing={3} className='StackSeguidores'>
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              fullWidth
-              className="seguidores-button"
-            >
-              {`Seguidos: ${user?.seguidos.length}`}
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              fullWidth
-              className="seguidores-button"
-            >
-              {`Seguidores: ${user?.seguidores.length}`}
-            </Button>
+            <Stack direction="column">
+              <Typography textAlign={'center'}>{user?.seguidos.length}</Typography>
+              <Typography>{'Seguidos'}</Typography>
+            </Stack>
+            <Stack direction="column">
+              <Typography textAlign={'center'}>{user?.seguidores.length}</Typography>
+              <Typography>{'Seguidores'}</Typography>
+            </Stack>
           </Stack>
         </Grid>
       </Grid>
-      {/* <Divider sx={{
-        backgroundColor: '#d32f2f', 
-        marginTop: '2%', 
-        marginBottom: '2%', 
-        marginLeft: '3%', 
-        marginRight: '3%'}} 
-      /> */}
-      <Stack direction='row' spacing={3} justifyContent={'center'}>
-        <FacebookIcon/>
-        <InstagramIcon/>
-        <WhatsAppIcon/>
-      </Stack>
       <Divider sx={{
         backgroundColor: '#d32f2f', 
         marginTop: '2%', 

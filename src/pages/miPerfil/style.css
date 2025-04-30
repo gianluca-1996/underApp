@@ -1,7 +1,6 @@
 .StackSeguidores{
     justify-content: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 5%;
 }
 
 .seguidores-button {
@@ -16,6 +15,11 @@
     background-color: #b71c1c !important;
 }
 
+.stackRedes{
+    justify-content: start;
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
 
 @media(min-width: 500px){
     .StackSeguidores{
