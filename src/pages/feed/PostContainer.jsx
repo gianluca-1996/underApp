@@ -26,11 +26,7 @@ const PostContainer = () => {
                 setIsLoading(false);
                 setPosteos(response.data);
             } catch (error) {
-                if(error.response.status === 401){
-                    alert('Su sesion ha expirado');
-                    logout();        
-                    navigate('/login');
-                } 
+                showNotification(error.response.data.message, 'error');
             }
         };
 
@@ -54,7 +50,7 @@ const PostContainer = () => {
             if(texto.length === 0) showNotification('No se puede agregar un post vacío', 'error');
             let response = await axios.post('/post/', {texto});
             showNotification(response.data.message, 'success');
-            response = await axios.get('/post/');
+            response = await axios.get('/post/'); // TODO: no llamar al endpoint sino agregar el nuevo posteo al listado
             setPosteos(response.data);
         } catch (error) {
             showNotification(error.message, 'error');

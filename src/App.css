@@ -7,7 +7,6 @@
 .content {
     position: relative;
     z-index: 10; /* Capa superior para asegurar que el contenido esté por encima */
-    padding: 20px;
     color: white; /* Asegura que el texto sea visible sobre el fondo oscuro */
     min-height: 100vh; /* Altura mínima de la pantalla */
     padding: 0;

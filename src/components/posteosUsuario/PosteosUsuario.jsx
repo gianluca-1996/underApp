@@ -23,7 +23,7 @@ const PosteosUsuario = ({userId}) => {
                 setPosteos(response.data);
                 setIsLoading(false);
             } catch (error) {
-                showNotification(error.response.data, 'error');
+                showNotification(error.response.data.message, 'error');
             }
         };
 

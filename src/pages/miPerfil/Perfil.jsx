@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Avatar, Card, CardContent } from '@mui/material';
+import { Box, Typography, Avatar, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import Secciones from './components/secciones/Secciones';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import useAxiosInterceptor from '../../config/axios.config';
 import { useNotification } from '../../context/NotificationContext';
 import CircularProgress from '@mui/material/CircularProgress';
+import PosteosUsuario from '../../components/posteosUsuario/PosteosUsuario';
+//import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import PlaceIcon from '@mui/icons-material/Place';
+import EmailIcon from '@mui/icons-material/Email';
+
+import './style.css'
 
 const Perfil = () => {
   const { authState } = useContext(AuthContext);
@@ -20,13 +30,17 @@ const Perfil = () => {
         const response = await axios.get(`/user/getUserById/${authState.user._id}`);
         setUser(response.data);
       } catch (error) {
-        showNotification(error.message, 'error');
+        console.log(error)
+        showNotification(error.response.data.message, 'error');
       }
     }
 
     getUser();
   }, [])
 
+  const handleClick = () => {
+    alert('You clicked the Chip.');
+  };
 
   if(authState.isLoading || !user){
     return (<Box style={{justifyItems: 'center', marginTop: '15%'}}>
@@ -63,34 +77,58 @@ const Perfil = () => {
       </Box>
 
       {/* Información Básica */}
-      <Grid container spacing={2} sx={{ mt: 8}}>
-        <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{backgroundColor: '#424242'}}>
-                <CardContent>
-                    <Typography variant="h4">{user?.usuario}</Typography>
-                    <Typography variant="body1">
-                    Ubicación: {user?.localidad}
-                    </Typography>
-                    <Typography variant="body1">
-                    Correo: {user?.email}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-            <Grid sx={{backgroundColor: 'inherit'}}>
-              <Typography variant="subtitle1">
-                Seguidores {user?.seguidores.length}
-              </Typography>
-              <Typography variant="subtitle1">
-                Seguidos {user?.seguidos.length}
-              </Typography>  
-            </Grid>
+      <Grid container sx={{ mt: 8}}>
+        <Grid size={{ xs: 12, md: 6 }} sx={{marginLeft: '2%'}}>
+          <Typography variant="h4">{user?.usuario}</Typography>
+          <Stack direction="row" spacing={2} justifyContent={'start'}>
+            <PlaceIcon/> <Typography>{user?.localidad}</Typography>
+          </Stack>
+          <Stack direction="row" spacing={2} justifyContent={'start'}>
+            <EmailIcon/> <Typography>{user?.email}</Typography>
+          </Stack>
+          {/* <Typography variant="body1">
+            <PlaceIcon/> {user?.localidad}
+          </Typography> */}
+          <Stack direction="row" spacing={3} className='StackSeguidores'>
+            <Button
+              variant="contained"
+              onClick={handleClick}
+              fullWidth
+              className="seguidores-button"
+            >
+              {`Seguidos: ${user?.seguidos.length}`}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClick}
+              fullWidth
+              className="seguidores-button"
+            >
+              {`Seguidores: ${user?.seguidores.length}`}
+            </Button>
+          </Stack>
         </Grid>
       </Grid>
-
-      {/* Secciones de la Página */}
-      <Secciones userId={authState.user._id}/>
+      {/* <Divider sx={{
+        backgroundColor: '#d32f2f', 
+        marginTop: '2%', 
+        marginBottom: '2%', 
+        marginLeft: '3%', 
+        marginRight: '3%'}} 
+      /> */}
+      <Stack direction='row' spacing={3} justifyContent={'center'}>
+        <FacebookIcon/>
+        <InstagramIcon/>
+        <WhatsAppIcon/>
+      </Stack>
+      <Divider sx={{
+        backgroundColor: '#d32f2f', 
+        marginTop: '2%', 
+        marginBottom: '2%', 
+        marginLeft: '3%', 
+        marginRight: '3%'}} 
+      />
+      <PosteosUsuario userId={authState.user._id}/>
     </Box>
   );
 };

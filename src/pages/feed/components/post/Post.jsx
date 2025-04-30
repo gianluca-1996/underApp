@@ -15,6 +15,9 @@ import CommentContainer from '../../../../components/commentContainer/CommentCon
 import Grid from '@mui/material/Grid2';
 import MenuPost from './menuPost/MenuPost';
 import { Link } from 'react-router-dom';
+import { useNotification } from '../../../../context/NotificationContext';
+import ReaccionesContainer from '../../../../components/reaccionesContainer/ReaccionesContainer';
+
 import './style.css'
 
 const Post = ({post, loginUser, handleDeletePost}) => {
@@ -23,10 +26,12 @@ const Post = ({post, loginUser, handleDeletePost}) => {
   const [comentarios, setComentarios] = useState(post.comentarios);
   const [reacciones, setReacciones] = useState([]);
   const [miReaccion, setMiReaccion] = useState(false);
+  const {showNotification} = useNotification();
 
   useEffect(() => {
-    const getReacciones = () => {
+    const verificarMiReaccion = () => {
       try {
+        //verifica si la reaccion del usuario esta en el post
         post.reacciones.forEach(reaccion => ( (reaccion.usuario._id == loginUser._id) && setMiReaccion(true) ) )
         setReacciones(post.reacciones);
       } catch (error) {
@@ -34,7 +39,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
       }
     }
 
-    getReacciones();
+    verificarMiReaccion();
   }, [])
 
   const handleReaccion = async () => {
@@ -44,7 +49,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
         setMiReaccion(false);
         setReacciones(response.data.data.reacciones);
       } catch (error) {
-        console.log(error.message)
+        showNotification(error.response.data.message, 'error');
       }
     }
     else{
@@ -53,10 +58,19 @@ const Post = ({post, loginUser, handleDeletePost}) => {
         setReacciones(response.data.data.reacciones);
         setMiReaccion(true);
       } catch (error) {
-        console.log(error.message)
+        showNotification(error.response.data.message, 'error');
       }
     }
   }
+
+  // const handleGetReacciones = async () => {
+  //   try {
+  //     const response = await axios.get(`/post/reacciones/${post._id}`);
+  //     setReacciones(response.data.reacciones);
+  //   } catch (error) {
+  //     showNotification(error.response.data.message, 'error');
+  //   }
+  // }
 
   return (
     <Card className='cardPost'>
@@ -72,7 +86,7 @@ const Post = ({post, loginUser, handleDeletePost}) => {
             (<MenuPost handleDeletePost={handleDeletePost} postId={post._id}/>)
           }
           title={post.created_id.usuario}
-          subheader={`${new Date(post.created_dt).toLocaleDateString()} | ${new Date(post.created_dt).getHours().toString().padStart(2, '0')}:${new Date(post.created_dt).getMinutes().toString().padStart(2, '0')}hs`}
+          subheader={`${new Date(post.createdAt).toLocaleDateString()} | ${new Date(post.createdAt).getHours().toString().padStart(2, '0')}:${new Date(post.createdAt).getMinutes().toString().padStart(2, '0')}hs`}
         />
         
         <Divider />
@@ -92,8 +106,8 @@ const Post = ({post, loginUser, handleDeletePost}) => {
                 <FavoriteIcon style={{color: miReaccion && 'red'}}/>
               </IconButton>
             </Grid>
-            <Grid display="flex" justifyContent="center" alignItems="center" size={1} onClick={() => {console.log(reacciones)}}>
-              <p>{reacciones.length}</p>
+            <Grid display="flex" justifyContent="center" alignItems="center" size={1}>
+              <ReaccionesContainer reacciones={reacciones} />
             </Grid>
           </Grid>
           <Grid container columns={2}>
